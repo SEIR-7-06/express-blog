@@ -19,5 +19,27 @@
       </ul>
     </nav>
   </header>
+
+
+  <main>
+    <h2>List of Authors</h2>
+
+    <%#
+      Iterate the authorsData array, and for each author create a list item with the author name
+    %>
+    <ul>
+
+      <% for (let i = 0; i < authorsData.length; i++) { %>
+        <li>
+          <a href="/authors/<%= authorsData[i]._id %>">
+            <%= authorsData[i].name %>
+          </a>
+        </li>
+      <% } %>
+
+    </ul>
+
+  </main>
+
 </body>
 </html>
