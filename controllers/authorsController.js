@@ -28,6 +28,26 @@ router.get('/new', (req, res) => {
   res.render('authors/authorsNew');
 });
 
+// GET One Author By ID (Show)
+router.get('/:id', (req, res) => {
+  // Query the DB to find author by ID, then res with template and data
+  const authorId = req.params.id;
+
+  db.Author.findById(authorId, (err, foundAuthor) => {
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
+
+    const context = {
+      authorData: foundAuthor,
+    }
+
+    res.render('authors/authorsShow', context);
+  });
+});
+
+
 // POST New Author From New Author Form
 router.post('/', (req, res) => {
   console.log(req.body);
