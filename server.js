@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const authorsController = require('./controllers/authorsController');
+const articlesController = require('./controllers/articlesController');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/authors', authorsController);
+app.use('/articles', articlesController);
 
 
 // Start Server Listener

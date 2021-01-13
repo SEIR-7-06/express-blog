@@ -6,21 +6,8 @@
   <title>Show Page For <%= authorData.name %></title>
 </head>
 <body>
-  <header>
-    <h1>Show Page For <%= authorData.name %></h1>
-    <nav>
-      <ul>
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/authors">Authors Index</a>
-        </li>
-      </ul>
-    </nav>
-  </header>
-
-
+  <%- include('../partials/header') %>
+  
   <main>
     <section>
       <h2>Author Attributes</h2>

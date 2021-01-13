@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show Page For <%= articleData.title %></title>
+</head>
+<body>
+  <%- include('../partials/header') %>
+  
+  <main>
+    <section>
+      <h2>Article Attributes</h2>
+        
+      <h3>Title: <%= articleData.title %></h3>
+      <p>Body: <%= articleData.body %></p>
+
+      <form action="/articles/<%= articleData._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+
+      <a href="/articles/<%= articleData._id %>/edit">
+        <button>Edit</button>
+      </a>
+
+    </section>
+  </main>
+
+</body>
+</html>

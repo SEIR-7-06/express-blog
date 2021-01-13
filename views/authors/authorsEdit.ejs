@@ -6,20 +6,7 @@
   <title>Edit Author</title>
 </head>
 <body>
-  
-  <header>
-    <h1>Update Author</h1>
-    <nav>
-      <ul>
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/authors">Authors Index</a>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <%- include('../partials/header') %>
 
   <main>
     <form action="/authors/<%= authorData._id %>?_method=PUT" method="POST">
