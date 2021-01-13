@@ -131,13 +131,24 @@ router.put('/:id', (req, res) => {
 
 // DELETE One Article By ID
 router.delete('/:id', (req, res) => {
-  db.Article.findByIdAndDelete(req.params.id, (err, deletedArticle) => {
+  const articleId = req.params.id;
+
+  db.Article.findByIdAndDelete(articleId, (err, deletedArticle) => {
     if (err) {
       console.log(err);
       return res.send(err);
     }
 
-    res.redirect('/articles');
+    db.Author.findByIdAndUpdate(
+      deletedArticle.author,
+      { $pull: {articles: deletedArticle._id} },
+      { new: true },
+      (err, updatedAuthor) => {
+        console.log('updatedAuthor:', updatedAuthor);
+        res.redirect('/articles');
+      }
+    )
+
   });
 });
 

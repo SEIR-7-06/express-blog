@@ -107,7 +107,9 @@ router.delete('/:id', (req, res) => {
       return res.send(err);
     }
 
-    res.redirect('/authors');
+    db.Article.deleteMany({author: deletedAuthor._id}, (err, deletedArticles) => {
+      res.redirect('/authors');
+    });
   });
 });
 
