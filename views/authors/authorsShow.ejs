@@ -33,6 +33,13 @@
           Created On: <%= authorData.createdAt %>
         </li>
       </ul>
+
+      <form action="/authors/<%= authorData._id %>?_method=DELETE" method="POST">
+
+        <button type="submit">Delete</button>
+
+      </form>
+
     </section>
   </main>
 

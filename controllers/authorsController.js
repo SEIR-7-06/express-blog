@@ -62,4 +62,16 @@ router.post('/', (req, res) => {
   });
 });
 
+// DELETE One Author By ID
+router.delete('/:id', (req, res) => {
+  db.Author.findByIdAndDelete(req.params.id, (err, deletedAuthor) => {
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
+
+    res.redirect('/authors');
+  });
+});
+
 module.exports = router;
