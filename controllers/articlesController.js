@@ -25,7 +25,18 @@ router.get('/', (req, res) => {
 
 // GET New Article Form
 router.get('/new', (req, res) => {
-  res.render('articles/articlesNew');
+  let context;
+
+  db.Author.find({}, (err, allAuthors) => {
+    console.log(allAuthors);
+
+    context = {
+      authors: allAuthors
+    }
+
+    res.render('articles/articlesNew', context);
+  })
+
 });
 
 // GET One Article By ID (Show)
@@ -33,11 +44,13 @@ router.get('/:id', (req, res) => {
   // Query the DB to find article by ID, then res with template and data
   const articleId = req.params.id;
 
-  db.Article.findById(articleId, (err, foundArticle) => {
+  db.Article.findById(articleId).populate('author').exec((err, foundArticle) => {
     if (err) {
       console.log(err);
       return res.send(err);
     }
+
+    console.log('foundArticle:', foundArticle);
 
     const context = {
       articleData: foundArticle,

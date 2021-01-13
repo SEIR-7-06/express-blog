@@ -11,6 +11,12 @@
   <main>
     <form action="/articles" method="POST">
 
+      <select name="author">
+        <% authors.forEach((author) => { %>
+          <option value="<%= author._id %>"><%= author.name %></option>
+        <% }) %>
+      </select>
+
       <div>
         <label for="title">Article Title</label>
         <input type="text" id="title" name="title" />
