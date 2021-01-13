@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Author</title>
+</head>
+<body>
+  
+  <header>
+    <h1>Update Author</h1>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/authors">Authors Index</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <form action="/authors/<%= authorData._id %>?_method=PUT" method="POST">
+
+      <label for="name">Author Name</label>
+      <input type="text" id="name" name="name" value="<%= authorData.name %>" />
+
+      <button type="submit">Update</button>
+    </form>
+  </main>
+
+</body>
+</html>

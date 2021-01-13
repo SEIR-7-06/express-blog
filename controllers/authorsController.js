@@ -62,6 +62,39 @@ router.post('/', (req, res) => {
   });
 });
 
+// GET An Author By ID with Form (Edit)
+router.get('/:id/edit', (req, res) => {
+  db.Author.findById(req.params.id, (err, foundAuthor) => {
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
+
+    const context = {
+      authorData: foundAuthor,
+    };
+
+    res.render('authors/authorsEdit', context);
+  });
+});
+
+// PUT Update Author By ID
+router.put('/:id', (req, res) => {
+  db.Author.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {new: true},
+    (err, updatedAuthor) => {
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      }
+
+      res.redirect('/authors');
+    }
+  );
+});
+
 // DELETE One Author By ID
 router.delete('/:id', (req, res) => {
   db.Author.findByIdAndDelete(req.params.id, (err, deletedAuthor) => {
