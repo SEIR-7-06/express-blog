@@ -33,20 +33,22 @@ router.get('/:id', (req, res) => {
   // Query the DB to find author by ID, then res with template and data
   const authorId = req.params.id;
 
-  db.Author.findById(authorId, (err, foundAuthor) => {
-    if (err) {
-      console.log(err);
-      return res.send(err);
-    }
+  db.Author.findById(authorId)
+    .populate('articles')
+    .exec((err, foundAuthor) => {
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      }
 
-    console.log('foundAuthor:', foundAuthor);
+      console.log('foundAuthor:', foundAuthor);
 
-    const context = {
-      authorData: foundAuthor,
-    }
+      const context = {
+        authorData: foundAuthor,
+      }
 
-    res.render('authors/authorsShow', context);
-  });
+      res.render('authors/authorsShow', context);
+    });
 });
 
 

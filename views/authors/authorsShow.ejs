@@ -31,6 +31,14 @@
         <button>Edit</button>
       </a>
 
+      <ul>
+        <% authorData.articles.forEach((article) => { %>
+          <a href="/articles/<%= article._id %>">
+            <li><%= article.title %></li>
+          </a>
+        <% }) %>
+      </ul>
+
     </section>
   </main>
 
