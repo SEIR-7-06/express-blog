@@ -13,7 +13,10 @@
       <h2>Article Attributes</h2>
         
       <h3>Title: <%= articleData.title %></h3>
-      <p>Body: <%= articleData.body %></p>
+      <a href="/authors/<%= articleData.author._id %>">
+        <p><%= articleData.author.name %></p>
+      </a>
+      <p><%= articleData.body %></p>
 
       <form action="/articles/<%= articleData._id %>?_method=DELETE" method="POST">
         <button type="submit">Delete</button>

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const authorSchema = new Schema({
   name: { type: String, required: true },
-  article: [
+  articles: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Article'

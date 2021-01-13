@@ -44,20 +44,22 @@ router.get('/:id', (req, res) => {
   // Query the DB to find article by ID, then res with template and data
   const articleId = req.params.id;
 
-  db.Article.findById(articleId).populate('author').exec((err, foundArticle) => {
-    if (err) {
-      console.log(err);
-      return res.send(err);
-    }
+  db.Article.findById(articleId)
+    .populate('author')
+    .exec((err, foundArticle) => {
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      }
 
-    console.log('foundArticle:', foundArticle);
+      console.log('author name:', foundArticle.author.name);
 
-    const context = {
-      articleData: foundArticle,
-    }
+      const context = {
+        articleData: foundArticle,
+      }
 
-    res.render('articles/articlesShow', context);
-  });
+      res.render('articles/articlesShow', context);
+    });
 });
 
 
@@ -71,7 +73,26 @@ router.post('/', (req, res) => {
       return res.send(err);
     }
 
-    res.redirect('/articles');
+    console.log('newArticle:', newArticle);
+
+    db.Author.findByIdAndUpdate(
+      newArticle.author,
+      { $push: { articles: newArticle._id} },
+      { new: true },
+      (err, updatedAuthor) => {
+        if (err) {
+          console.log(err);
+          return res.send(
+            'Apologies for the inconvenience. It looks like there was an error getting your data.'
+          );
+        }
+
+        console.log('updatedAuthor:', updatedAuthor);
+
+        res.redirect('/articles');
+      }
+    )
+
   });
 });
 

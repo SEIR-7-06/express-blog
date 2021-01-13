@@ -39,6 +39,8 @@ router.get('/:id', (req, res) => {
       return res.send(err);
     }
 
+    console.log('foundAuthor:', foundAuthor);
+
     const context = {
       authorData: foundAuthor,
     }
