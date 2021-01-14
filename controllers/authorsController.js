@@ -33,6 +33,7 @@ router.get('/:id', (req, res) => {
   // Query the DB to find author by ID, then res with template and data
   const authorId = req.params.id;
 
+  // Get an Author object by id and populate the articles data.
   db.Author.findById(authorId)
     .populate('articles')
     .exec((err, foundAuthor) => {
@@ -55,6 +56,7 @@ router.get('/:id', (req, res) => {
 // POST New Author From New Author Form
 router.post('/', (req, res) => {
   console.log(req.body);
+
   // Create a new Author Object in MongoDB
   db.Author.create(req.body, (err, newAuthor) => {
     if (err) {
@@ -84,6 +86,8 @@ router.get('/:id/edit', (req, res) => {
 
 // PUT Update Author By ID
 router.put('/:id', (req, res) => {
+  // Update an Author by its id with the data coming in
+  // from the form
   db.Author.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -101,12 +105,14 @@ router.put('/:id', (req, res) => {
 
 // DELETE One Author By ID
 router.delete('/:id', (req, res) => {
+  // Delete an author by it's id
   db.Author.findByIdAndDelete(req.params.id, (err, deletedAuthor) => {
     if (err) {
       console.log(err);
       return res.send(err);
     }
 
+    // Delete all articles associated with the deleted author
     db.Article.deleteMany({author: deletedAuthor._id}, (err, deletedArticles) => {
       res.redirect('/authors');
     });

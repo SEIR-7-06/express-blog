@@ -27,6 +27,7 @@ router.get('/', (req, res) => {
 router.get('/new', (req, res) => {
   let context;
 
+  // GET all authors from DB so it can be displayed in the form
   db.Author.find({}, (err, allAuthors) => {
     console.log(allAuthors);
 
@@ -44,6 +45,7 @@ router.get('/:id', (req, res) => {
   // Query the DB to find article by ID, then res with template and data
   const articleId = req.params.id;
 
+  // Get an article by it's id and populate the author data
   db.Article.findById(articleId)
     .populate('author')
     .exec((err, foundArticle) => {
@@ -66,15 +68,18 @@ router.get('/:id', (req, res) => {
 // POST New Article From New Article Form
 router.post('/', (req, res) => {
   console.log(req.body);
-  // Create a new Article Object in MongoDB
+
+  // Creates a new Article Object in MongoDB
   db.Article.create(req.body, (err, newArticle) => {
     if (err) {
       console.log(err);
       return res.send(err);
     }
 
-    console.log('newArticle:', newArticle);
-
+    // Updates the Author Object by adding the id of the new
+    // article in the articles array.
+    // Remember, the articles property on author is justan array
+    // of author id's
     db.Author.findByIdAndUpdate(
       newArticle.author,
       { $push: { articles: newArticle._id} },
@@ -98,6 +103,8 @@ router.post('/', (req, res) => {
 
 // GET An Article By ID with Form (Edit)
 router.get('/:id/edit', (req, res) => {
+  // Get the article by id.
+  // Show the edit form populating the data in the form.
   db.Article.findById(req.params.id, (err, foundArticle) => {
     if (err) {
       console.log(err);
@@ -133,12 +140,18 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const articleId = req.params.id;
 
+  // Remove an article by its id
   db.Article.findByIdAndDelete(articleId, (err, deletedArticle) => {
     if (err) {
       console.log(err);
       return res.send(err);
     }
 
+    // Find the author associated with that Article
+    // Update the Author by removing an article id
+    // from the articles array.
+    // Remember, the Author object has an articles property
+    // that is just an array of article ids.
     db.Author.findByIdAndUpdate(
       deletedArticle.author,
       { $pull: {articles: deletedArticle._id} },
