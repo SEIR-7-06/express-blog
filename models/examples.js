@@ -1,3 +1,9 @@
+/* *******************************************************
+This file shows example of what your data will look like
+in Mongo DB once you set up the relationships. This does
+not need to be in your project.
+*********************************************************/
+
 // EMBEDED DATA
 let author = {
   name: 'Frank Herbert',

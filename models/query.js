@@ -1,3 +1,9 @@
+/* *******************************************************
+This file shows example of making a query to the Mongo DB
+once you've set up the relationships between your models.
+This does not need to be in your project.
+*********************************************************/
+
 const mongoose = require('mongoose');
 const db = require('./');
 
