@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 4000;
 
 app.set('view engine', 'ejs');
 
+// Serving up static assets
+app.use(express.static(`${__dirname}/public`));
 
 // BodyParser - put request data on req.body
 app.use(bodyParser.urlencoded({extended: false}));
